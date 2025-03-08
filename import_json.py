@@ -23,7 +23,11 @@ def get_keypoints():
 
     #Extract keypoints
     for pose in poses:
-        keypoints.append(pose.get('people')[0].get('pose_keypoints_2d')) #Extract keypoints from skeleton and save it in keypoints array. Only works if number_people_max=1
+        try:
+            keypoints.append(pose.get('people')[0].get('pose_keypoints_2d')) #Extract keypoints from skeleton and save it in keypoints array. Only works if number_people_max=1
+        except:
+            keypoints.append(np.zeros(25*3))
+            pass
 
     # Body part locations (x, y) and detection confidence (c) formatted as x0,y0,c0,x1,y1,c1,....
 
