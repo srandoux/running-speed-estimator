@@ -9,7 +9,7 @@ def get_keypoints():
     keypoints=[]
 
     # Get all json filenames from dir
-    path_to_json = 'runners/'
+    path_to_json = '1/'
     json_files = sorted([pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')])
 
     for json_filename in json_files: #Iterate with all json filenames

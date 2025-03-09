@@ -112,7 +112,14 @@ def draw_athlete_speed(frame, speed):
 
 
 #main
-cap = cv2.VideoCapture('runners.mp4')
+cap = cv2.VideoCapture('video2.MOV')
+# Get the Default resolutions
+frame_width = int(cap.get(3))
+frame_height = int(cap.get(4))
+
+result = cv2.VideoWriter('output.avi',  
+cv2.VideoWriter_fourcc('M','J','P','G'),
+                         30, (frame_width,frame_height))
 frame_count = 0
 
 #Live plotter
@@ -126,7 +133,10 @@ while(cap.isOpened()):
     if not ret:
         break
 
-    f_kp = kp[frame_count]
+    try:
+        f_kp = kp[frame_count]
+    except:
+        break
 
     frame = draw_keypoints(frame, f_kp)
 
@@ -157,6 +167,7 @@ while(cap.isOpened()):
         stride_frames=0
         times=0
 
+
     #Live plotter
     speeds.append(new_speed)
     y_vec[-1]=speeds[-1]
@@ -167,10 +178,12 @@ while(cap.isOpened()):
 
     cv2.imshow('Running Speed Estimator', frame)
     frame_count += 1
+    result.write(frame) 
 
     if cv2.waitKey(20) & 0xFF == ord('q'):
         break
 
+result.release() 
 #Create speed plot
 frames=len(kp)
 smoothness=int(frames/2) #Change smoothness depending on the video duration
