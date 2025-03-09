@@ -112,7 +112,7 @@ def draw_athlete_speed(frame, speed):
 
 
 #main
-cap = cv2.VideoCapture('runner.mp4')
+cap = cv2.VideoCapture('runners.mp4')
 frame_count = 0
 
 #Live plotter
